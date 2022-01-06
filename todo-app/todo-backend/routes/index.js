@@ -22,6 +22,7 @@ router.get('/statistics', async (req, res) => {
   try {
     addedTodos = await redis.getAsync('addedTodos')
     if (addedTodos === null) addedTodos = 0
+    addedTodos = Number(addedTodos)
   } catch (err) {
     console.error('err', err)
     throw new Error(err)
