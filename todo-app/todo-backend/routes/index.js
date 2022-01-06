@@ -16,4 +16,20 @@ router.get('/', async (req, res) => {
   })
 })
 
+/* GET todo statistics data. */
+router.get('/statistics', async (req, res) => {
+  let addedTodos
+  try {
+    addedTodos = await redis.getAsync('addedTodos')
+    if (addedTodos === null) addedTodos = 0
+  } catch (err) {
+    console.error('err', err)
+    throw new Error(err)
+  }
+
+  res.send({
+    added_todos: addedTodos,
+  })
+})
+
 module.exports = router
