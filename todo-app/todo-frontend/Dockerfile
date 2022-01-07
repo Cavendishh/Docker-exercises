@@ -1,15 +1,17 @@
-FROM node:16
-
+FROM node:16 AS base
 WORKDIR /usr/src/app
-
 COPY . .
 
-ENV REACT_APP_BACKEND_URL='http://localhost:3000'
+FROM base AS test
+ENV  CI=true
+RUN  npm ci
+COPY . .
+RUN  npm test
 
-RUN npm ci
-
-RUN npm run build
-
-RUN npm install -g serve
-
-CMD ["serve", "build"]
+# No seperate npm ci -production because we want to build with test-stage's npm ci
+FROM base AS prod
+ENV  REACT_APP_BACKEND_URL='http://localhost:3000'
+COPY --from=test /usr/src/app .
+RUN  npm run build
+RUN  npm install -g serve
+CMD  ["serve", "build"]
