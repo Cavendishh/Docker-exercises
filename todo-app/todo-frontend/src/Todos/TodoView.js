@@ -12,9 +12,7 @@ const TodoView = () => {
     setTodos(data)
   }
 
-  useEffect(() => {
-    refreshTodos()
-  }, [])
+  useEffect(() => refreshTodos(), [])
 
   const createTodo = async (todo) => {
     const { data } = await axios.post('/todos', todo)

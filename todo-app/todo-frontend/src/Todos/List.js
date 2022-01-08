@@ -13,8 +13,13 @@ const TodoList = ({ todos, deleteTodo, completeTodo }) => {
 
   return (
     <>
-      {todos.map((todo) => (
-        <Todo todo={todo} onClickDelete={onClickDelete} onClickComplete={onClickComplete} />
+      {todos.map((todo, i) => (
+        <Todo
+          todo={todo}
+          onClickDelete={onClickDelete}
+          onClickComplete={onClickComplete}
+          key={`${todo.text}-${i}`}
+        />
       ))}
     </>
   )

@@ -14,7 +14,7 @@ router.get('/', async (_, res) => {
 router.post('/', async (req, res) => {
   let todo
   try {
-    let todo = await Todo.create({
+    todo = await Todo.create({
       text: req.body.text,
       done: false,
     })
