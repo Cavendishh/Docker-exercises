@@ -29,14 +29,14 @@ const TodoView = () => {
   const completeTodo = async (todo) => {
     await axios.put(`/todos/${todo._id}`, {
       text: todo.text,
-      done: true
+      done: true,
     })
     refreshTodos()
   }
 
   return (
     <>
-      <h1>Todos</h1>
+      <h1>Todos from</h1>
       <Form createTodo={createTodo} />
       <List todos={todos} deleteTodo={deleteTodo} completeTodo={completeTodo} />
     </>
