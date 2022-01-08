@@ -10,7 +10,7 @@ RUN  npm test
 
 # No seperate npm ci -production because we want to build with test-stage's npm ci
 FROM base AS prod
-ENV  REACT_APP_BACKEND_URL='http://localhost:3000'
+ENV  REACT_APP_BACKEND_URL='http://localhost:3001'
 COPY --from=test /usr/src/app .
 RUN  npm run build
 RUN  npm install -g serve

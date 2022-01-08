@@ -3,17 +3,21 @@ version: '3.8'
 services:
   server:
     image: todo-backend-dev
+    ports:
+      - 3001:3000
     build:
       context: .
       dockerfile: dev.Dockerfile
     depends_on:
       - mongo
       - redis
-    ports:
-      - 3001:3000
+    volumes:
+      - ./:/usr/src/app # The path can be relative, so ./ is enough to say "the same location as the docker-compose.yml"
     environment:
+      - CHOKIDAR_USEPOLLING=true
       - MONGO_URL=mongodb://root:example@todo-backend-mongo:27017/the_database
       - REDIS_URL=//todo-backend-redis:6379
+    container_name: todo-backend-dev
 
   mongo:
     image: mongo
